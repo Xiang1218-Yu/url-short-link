@@ -32,9 +32,6 @@ func (l Link) Validate() error {
 	if err != nil || parsed.Scheme == "" || parsed.Host == "" {
 		return fmt.Errorf("%w: %q", ErrInvalidTarget, l.Target)
 	}
-	if strings.TrimSpace(l.Owner) == "" {
-		return errors.New("short link owner is required")
-	}
 	return nil
 }
 
