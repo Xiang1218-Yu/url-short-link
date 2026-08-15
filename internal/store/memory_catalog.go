@@ -62,10 +62,10 @@ func (c *MemoryCatalog) List(ctx context.Context) ([]domain.Link, error) {
 func (c *MemoryCatalog) RecordVisit(ctx context.Context, code string) (int, error) {
 	key := normalizeCode(code)
 	c.mu.Lock()
+	defer c.mu.Unlock()
 	if err := ctx.Err(); err != nil {
 		return 0, err
 	}
-	defer c.mu.Unlock()
 	link, ok := c.links[key]
 	if !ok {
 		return 0, fmt.Errorf("%w: %s", ErrNotFound, code)
