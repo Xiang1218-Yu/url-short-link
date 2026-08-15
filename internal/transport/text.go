@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
+	"url-short-link/internal/domain"
 )
 
 func WriteResolution(out io.Writer, resolution domain.Resolution) error {

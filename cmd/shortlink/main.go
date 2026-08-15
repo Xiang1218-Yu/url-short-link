@@ -9,9 +9,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/service"
-	"github.com/Xiang1218-Yu/url-short-link/internal/store"
-	"github.com/Xiang1218-Yu/url-short-link/internal/transport"
+	"url-short-link/internal/service"
+	"url-short-link/internal/store"
+	"url-short-link/internal/transport"
 )
 
 func main() {

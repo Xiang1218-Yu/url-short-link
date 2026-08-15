@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
+	"url-short-link/internal/domain"
 )
 
 var (

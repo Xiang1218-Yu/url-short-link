@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
-	"github.com/Xiang1218-Yu/url-short-link/internal/store"
+	"url-short-link/internal/domain"
+	"url-short-link/internal/store"
 )
 
 func newCatalog(t *testing.T, links []domain.Link) *store.MemoryCatalog {

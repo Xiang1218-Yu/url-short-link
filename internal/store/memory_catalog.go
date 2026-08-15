@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
+	"url-short-link/internal/domain"
 )
 
 // MemoryCatalog is the local runtime representation of the checked-in JSON catalog.

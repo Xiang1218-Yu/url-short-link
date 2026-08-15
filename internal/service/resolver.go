@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
-	"github.com/Xiang1218-Yu/url-short-link/internal/store"
+	"url-short-link/internal/domain"
+	"url-short-link/internal/store"
 )
 
 // Resolver applies expiration policy before a target is exposed and a visit is counted.

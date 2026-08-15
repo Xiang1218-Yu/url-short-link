@@ -5,8 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Xiang1218-Yu/url-short-link/internal/domain"
-	"github.com/Xiang1218-Yu/url-short-link/internal/store"
+	"url-short-link/internal/domain"
+	"url-short-link/internal/store"
 )
 
 // Reporter produces owner-scoped management views without exposing catalog internals.
