@@ -1,0 +1,16 @@
+.git
+.gitignore
+.DS_Store
+annotation_tasks/
+tasks/
+private/
+registries/
+*.patch
+*.diff
+*.log
+*.out
+*.test
+bin/
+dist/
+coverage/
+BUG_REPRO.md

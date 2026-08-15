@@ -1,0 +1,7 @@
+{
+  "links": [
+    {"code":"docs","target":"https://docs.example.com/getting-started","owner":"platform","tags":["documentation","public"]},
+    {"code":"launch","target":"https://example.com/launch","owner":"marketing","expires_at":"2026-12-31T00:00:00Z","tags":["campaign"]},
+    {"code":"status","target":"https://status.example.com/","owner":"platform","tags":["operations"]}
+  ]
+}
