@@ -31,9 +31,9 @@ func LoadJSON(ctx context.Context, path string) ([]domain.Link, error) {
 	if err := decoder.Decode(&payload); err != nil {
 		return nil, fmt.Errorf("decode catalog: %w", err)
 	}
-	for i := range payload.Links {
-		if strings.TrimSpace(payload.Links[i].Owner) == "" {
-			payload.Links[i].Owner = "unassigned"
+	for i, link := range payload.Links {
+		if strings.TrimSpace(link.Owner) == "" {
+			return nil, fmt.Errorf("link %d (%q): %w", i+1, link.Code, domain.ErrMissingOwner)
 		}
 	}
 	if len(payload.Links) == 0 {
