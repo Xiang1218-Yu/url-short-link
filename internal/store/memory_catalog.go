@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strings"
 	"sync"
+	"time"
 
 	"url-short-link/internal/domain"
 )
@@ -69,6 +70,9 @@ func (c *MemoryCatalog) RecordVisit(ctx context.Context, code string) (int, erro
 	link, ok := c.links[key]
 	if !ok {
 		return 0, fmt.Errorf("%w: %s", ErrNotFound, code)
+	}
+	if !time.Now().Before(*link.ExpiresAt) {
+		return 0, domain.ErrExpired
 	}
 	link.Visits++
 	c.links[key] = link
