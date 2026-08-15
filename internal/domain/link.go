@@ -48,8 +48,10 @@ func (l Link) ActiveAt(at time.Time) error {
 // Clone returns an independent value that callers may safely modify.
 func (l Link) Clone() Link {
 	clone := l
-	expires := *l.ExpiresAt
-	clone.ExpiresAt = &expires
+	if l.ExpiresAt != nil {
+		expires := *l.ExpiresAt
+		clone.ExpiresAt = &expires
+	}
 	clone.Tags = append([]string(nil), l.Tags...)
 	return clone
 }

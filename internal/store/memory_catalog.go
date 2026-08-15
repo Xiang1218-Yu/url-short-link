@@ -71,7 +71,7 @@ func (c *MemoryCatalog) RecordVisit(ctx context.Context, code string) (int, erro
 	if !ok {
 		return 0, fmt.Errorf("%w: %s", ErrNotFound, code)
 	}
-	if !time.Now().Before(*link.ExpiresAt) {
+	if link.ExpiresAt != nil && !time.Now().Before(*link.ExpiresAt) {
 		return 0, domain.ErrExpired
 	}
 	link.Visits++
