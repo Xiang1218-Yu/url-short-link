@@ -52,4 +52,11 @@ func TestResolveHonorsCancelledContext(t *testing.T) {
 	if !errors.Is(err, context.Canceled) {
 		t.Fatalf("error=%v, want canceled", err)
 	}
+	link, err := catalog.Find(context.Background(), "docs")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if link.Visits != 0 {
+		t.Fatalf("cancelled resolve still recorded visit: visits=%d, want 0", link.Visits)
+	}
 }
