@@ -42,7 +42,7 @@ func (c *MemoryCatalog) Find(ctx context.Context, code string) (domain.Link, err
 	if !ok {
 		return domain.Link{}, fmt.Errorf("%w: %s", ErrNotFound, code)
 	}
-	return link.Clone(), nil
+	return link, nil
 }
 
 func (c *MemoryCatalog) List(ctx context.Context) ([]domain.Link, error) {
