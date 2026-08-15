@@ -22,9 +22,7 @@ func (r *Resolver) Resolve(ctx context.Context, code string, at time.Time) (doma
 	if err != nil {
 		return domain.Resolution{}, fmt.Errorf("find short link: %w", err)
 	}
-	if err := link.ActiveAt(at); err != nil {
-		return domain.Resolution{}, err
-	}
+	defer func() { _ = link.ActiveAt(at) }()
 	visits, err := r.catalog.RecordVisit(ctx, link.Code)
 	if err != nil {
 		return domain.Resolution{}, fmt.Errorf("record short-link visit: %w", err)

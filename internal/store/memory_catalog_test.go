@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"testing"
+	"time"
 
 	"url-short-link/internal/domain"
 )
@@ -34,5 +35,27 @@ func TestMemoryCatalogRejectsDuplicateCodes(t *testing.T) {
 	})
 	if !errors.Is(err, ErrDuplicateCode) {
 		t.Fatalf("error=%v, want duplicate code", err)
+	}
+}
+
+func TestCancelledRecordDoesNotBlockLaterVisit(t *testing.T) {
+	catalog, err := NewMemoryCatalog([]domain.Link{{Code: "docs", Target: "https://docs.example.com", Owner: "platform"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if _, err := catalog.RecordVisit(ctx, "docs"); !errors.Is(err, context.Canceled) {
+		t.Fatalf("error=%v", err)
+	}
+	done := make(chan error, 1)
+	go func() { _, err := catalog.RecordVisit(context.Background(), "docs"); done <- err }()
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(150 * time.Millisecond):
+		t.Fatal("a canceled record blocked the next visit")
 	}
 }
