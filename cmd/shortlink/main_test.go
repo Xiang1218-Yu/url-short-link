@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"errors"
 	"strings"
 	"testing"
 )
@@ -26,5 +27,15 @@ func TestRunListsOwnerLinks(t *testing.T) {
 	}
 	if got := strings.Count(strings.TrimSpace(output.String()), "\n") + 1; got != 2 {
 		t.Fatalf("lines=%d output=%q", got, output.String())
+	}
+}
+
+func TestRunReturnsCancellationBeforeReadingInput(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	var output bytes.Buffer
+	err := run(ctx, []string{"--input", "missing-catalog.json", "--code", "docs"}, &output)
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("error=%v, want context cancellation", err)
 	}
 }

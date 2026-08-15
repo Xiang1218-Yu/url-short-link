@@ -34,7 +34,7 @@ func run(ctx context.Context, args []string, out io.Writer) error {
 	if (*code == "" && *owner == "") || (*code != "" && *owner != "") {
 		return errors.New("provide exactly one of --code or --owner")
 	}
-	links, err := store.LoadJSON(ctx, *input)
+	links, err := store.LoadJSON(context.Background(), *input)
 	if err != nil {
 		return err
 	}
