@@ -52,6 +52,6 @@ func (l Link) Clone() Link {
 		expires := *l.ExpiresAt
 		clone.ExpiresAt = &expires
 	}
-	clone.Tags = l.Tags
+	clone.Tags = append([]string(nil), l.Tags...)
 	return clone
 }
