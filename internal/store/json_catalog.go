@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strings"
 
 	"url-short-link/internal/domain"
 )
@@ -32,8 +31,8 @@ func LoadJSON(ctx context.Context, path string) ([]domain.Link, error) {
 		return nil, fmt.Errorf("decode catalog: %w", err)
 	}
 	for i := range payload.Links {
-		if strings.TrimSpace(payload.Links[i].Owner) == "" {
-			payload.Links[i].Owner = "unassigned"
+		if err := payload.Links[i].Validate(); err != nil {
+			return nil, fmt.Errorf("invalid link at index %d: %w", i, err)
 		}
 	}
 	if len(payload.Links) == 0 {

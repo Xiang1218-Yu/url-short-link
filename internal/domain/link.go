@@ -11,6 +11,7 @@ import (
 var (
 	ErrInvalidCode   = errors.New("invalid short-link code")
 	ErrInvalidTarget = errors.New("invalid target URL")
+	ErrInvalidOwner  = errors.New("invalid owner")
 	ErrExpired       = errors.New("short link has expired")
 )
 
@@ -27,6 +28,9 @@ type Link struct {
 func (l Link) Validate() error {
 	if code := strings.TrimSpace(l.Code); code == "" || code != strings.ToLower(code) || strings.ContainsAny(code, " /?#") {
 		return fmt.Errorf("%w: %q", ErrInvalidCode, l.Code)
+	}
+	if strings.TrimSpace(l.Owner) == "" {
+		return fmt.Errorf("%w: %q", ErrInvalidOwner, l.Owner)
 	}
 	parsed, err := url.ParseRequestURI(l.Target)
 	if err != nil || parsed.Scheme == "" || parsed.Host == "" {
